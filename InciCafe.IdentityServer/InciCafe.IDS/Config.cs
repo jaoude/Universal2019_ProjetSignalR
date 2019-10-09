@@ -3,88 +3,79 @@
 
 
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 using System.Collections.Generic;
 
-namespace InciCafe.IDS
+namespace InciCafe.Ids
 {
     public static class Config
     {
+        public static List<TestUser> GetUsers()
+        {
+            return new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId = "1",
+                    Username = "alice",
+                    Password = "password"
+                },
+                new TestUser
+                {
+                    SubjectId = "2",
+                    Username = "bob",
+                    Password = "password"
+                }
+            };
+        }
+
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new IdentityResource[]
             {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.OpenId()
             };
         }
 
         public static IEnumerable<ApiResource> GetApis()
         {
-            return new ApiResource[]
+            return new List<ApiResource>
             {
-                new ApiResource("incicafeapi", "INCI Cafe API")
+                new ApiResource("incicafeapi", "Inci Cafe Api")
             };
         }
 
         public static IEnumerable<Client> GetClients()
         {
-            return new[]
+            return new List<Client>
             {
-                //// client credentials flow client
-                //new Client
-                //{
-                //    ClientId = "incicafeclient",
-                //    ClientName = "Client Credentials Client",
-
-                //    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                //    ClientSecrets = { new Secret("incicafesecret".Sha256()) },
-
-                //    AllowedScopes = { "InciCafeApi" }
-                //},
-
-                // MVC client using code flow + pkce
                 new Client
                 {
                     ClientId = "incicafeclient",
-                    ClientName = "MVC Client",
 
-                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
-                    RequirePkce = true,
-                    ClientSecrets = { new Secret("incicafesecret".Sha256()) },
+                    // no interactive user, use the clientid/secret for authentication
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    RedirectUris = { "http://localhost:5003/signin-oidc" },
-                    FrontChannelLogoutUri = "http://localhost:5003/signout-oidc",
-                    PostLogoutRedirectUris = { "http://localhost:5003/signout-callback-oidc" },
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("incicafesecret".Sha256())
+                    },
 
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "incicafeapi" }
+                    // scopes that client has access to
+                    AllowedScopes = { "incicafeapi" }
+                },
+                new Client
+                {
+                    ClientId = "ro.incicafeclient",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+                    ClientSecrets =
+                    {
+                        new Secret("incicafesecret".Sha256())
+                    },
+                    AllowedScopes = { "incicafeapi" }
                 }
-                //,
-
-                //// SPA client using code flow + pkce
-                //new Client
-                //{
-                //    ClientId = "spa",
-                //    ClientName = "SPA Client",
-                //    ClientUri = "http://identityserver.io",
-
-                //    AllowedGrantTypes = GrantTypes.Code,
-                //    RequirePkce = true,
-                //    RequireClientSecret = false,
-
-                //    RedirectUris =
-                //    {
-                //        "http://localhost:5002/index.html",
-                //        "http://localhost:5002/callback.html",
-                //        "http://localhost:5002/silent.html",
-                //        "http://localhost:5002/popup.html",
-                //    },
-
-                //    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                //    AllowedCorsOrigins = { "http://localhost:5002" },
-
-                //    AllowedScopes = { "openid", "profile", "api1" }
-                //}
             };
         }
     }

@@ -1,4 +1,3 @@
-using InciCafe.BLL;
 using InciCafe.BLL.Service;
 using InciCafe.DAL;
 using InciCafe.DAL.Repositories;
@@ -10,9 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IdentityModel.Tokens.Jwt;
 
-namespace InciCafe.API
+namespace InciCafe.Api
 {
     public class Startup
     {
@@ -27,9 +25,8 @@ namespace InciCafe.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<InciCafeDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("InciCafeDbConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("InciCafeDbConnection")));
 
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddTransient<ICoffeeService, CoffeeService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IOrderService, OrderService>();
@@ -43,25 +40,17 @@ namespace InciCafe.API
 
             services.AddTransient<IServiceBase, ServiceBase>();
             services.AddTransient<IAutoMapperService, AutoMapperService>();
-
-            services.AddControllers();
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";
-            })
-                .AddCookie("Cookies")
-                .AddOpenIdConnect("oidc", options =>
+            
+            services.AddAuthorization()
+                .AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
                 {
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
 
-                    options.ClientId = "incicafeclient";
-                    options.SaveTokens = true;
+                    options.Audience = "incicafeapi";
                 });
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,13 +60,21 @@ namespace InciCafe.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseHttpsRedirection();
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseStaticFiles();
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

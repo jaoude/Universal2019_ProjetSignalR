@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace InciCafe.BLL
+namespace InciCafe.BLL.Service
 {
     public interface ICoffeeService
     {
