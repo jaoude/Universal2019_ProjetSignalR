@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InciCafe.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InciCafe.Api.Controllers
 {
@@ -24,6 +25,11 @@ namespace InciCafe.Api.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        [Authorize]
+        public IActionResult Secure()
         {
             return View();
         }

@@ -5,10 +5,12 @@ using InciCafe.DAL.UnitOfWork;
 using InciOneSoft.BLL.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace InciCafe.Api
 {
@@ -37,19 +39,26 @@ namespace InciCafe.Api
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
 
-
             services.AddTransient<IServiceBase, ServiceBase>();
             services.AddTransient<IAutoMapperService, AutoMapperService>();
-            
-            services.AddAuthorization()
-                .AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.Authority = "http://localhost:5000";
-                    options.RequireHttpsMetadata = false;
 
-                    options.Audience = "incicafeapi";
-                });
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", options =>
+            {
+                options.Authority = "http://localhost:5000";
+                options.RequireHttpsMetadata = false;
+
+                options.ClientId = "oid1.incicafeclient";
+                options.SaveTokens = true;
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -64,12 +73,11 @@ namespace InciCafe.Api
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
-
+          
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
