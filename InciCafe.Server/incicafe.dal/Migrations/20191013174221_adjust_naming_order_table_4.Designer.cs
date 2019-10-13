@@ -4,14 +4,16 @@ using InciCafe.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InciCafe.DAL.Migrations
 {
     [DbContext(typeof(InciCafeDbContext))]
-    partial class InciCafeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191013174221_adjust_naming_order_table_4")]
+    partial class adjust_naming_order_table_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,7 +309,7 @@ namespace InciCafe.DAL.Migrations
             modelBuilder.Entity("InciCafe.DAL.Entities.Order", b =>
                 {
                     b.HasOne("InciCafe.DAL.Entities.Client", "Client")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -319,7 +321,7 @@ namespace InciCafe.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("InciCafe.DAL.Entities.Status", "Status")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

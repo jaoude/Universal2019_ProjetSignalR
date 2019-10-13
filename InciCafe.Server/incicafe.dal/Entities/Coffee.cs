@@ -12,8 +12,11 @@ namespace InciCafe.DAL.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         [Required]
         [MaxLength(250)]
         public string Name { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

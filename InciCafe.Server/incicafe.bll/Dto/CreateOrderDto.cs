@@ -8,18 +8,12 @@ namespace InciCafe.BLL.Dto
    public class CreateOrderDto
     {
         [Required]
-        public int Client_Id;
+        public int ClientId { get; set; }
 
         [Required]
-
-        public int Coffee_Id;
-
-        [Required]
-
-        public DateTime Created_At;
+        public int CoffeeId { get; set; }
 
         [Required]
-
-        public int Status_Id;
+        public int StatusId { get; set; }
     }
 }

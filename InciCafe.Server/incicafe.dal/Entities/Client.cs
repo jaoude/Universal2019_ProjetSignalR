@@ -21,5 +21,7 @@ namespace InciCafe.DAL.Entities
         public string Email { get; set; }
 
         public int Age { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

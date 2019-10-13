@@ -4,14 +4,16 @@ using InciCafe.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InciCafe.DAL.Migrations
 {
     [DbContext(typeof(InciCafeDbContext))]
-    partial class InciCafeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191013165426_adjust_naming_order_table_2")]
+    partial class adjust_naming_order_table_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +102,7 @@ namespace InciCafe.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Status_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -307,19 +309,19 @@ namespace InciCafe.DAL.Migrations
             modelBuilder.Entity("InciCafe.DAL.Entities.Order", b =>
                 {
                     b.HasOne("InciCafe.DAL.Entities.Client", "Client")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InciCafe.DAL.Entities.Coffee", "Coffee")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CoffeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InciCafe.DAL.Entities.Status", "Status")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

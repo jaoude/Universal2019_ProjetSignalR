@@ -6,25 +6,25 @@ using System.Text;
 
 namespace InciCafe.DAL.Entities
 {
+    [Table("Order")]
     public class Order
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set;}
 
-        public DateTime created_at { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        [ForeignKey("Client_Id")]
+        [ForeignKey("ClientId")]
         public Client Client { get; set; }
-        public int Client_Id { get; set; }
+        public int ClientId { get; set; }
 
-        [ForeignKey("Coffee_Id")]
+        [ForeignKey("CoffeeId")]
         public Coffee Coffee { get; set; }
-        public int Coffee_Id { get; set; }
+        public int CoffeeId { get; set; }
 
-        [ForeignKey("Status_Id")]
+        [ForeignKey("StatusId")]
         public Status Status { get; set; }
-        public int Status_Id { get; set; }
-
+        public int StatusId { get; set; }
     }
 }

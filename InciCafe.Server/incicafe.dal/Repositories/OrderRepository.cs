@@ -16,7 +16,12 @@ namespace InciCafe.DAL.Repositories
         {
 
         }
-        public async Task<Order> GetOrderAsync(int id, CancellationToken ct) => await _db.Set<Order>().FirstOrDefaultAsync(ct);
+        public async Task<Order> GetOrderAsync(int id, CancellationToken ct) => 
+            await _db.Set<Order>()
+            .Include(c => c.Coffee)
+            .Include(c => c.Client)
+            .Include(c => c.Status)
+            .FirstOrDefaultAsync(ct);
 
         public async Task<IEnumerable<Order>> GetOrdersAsync(CancellationToken ct)
         {

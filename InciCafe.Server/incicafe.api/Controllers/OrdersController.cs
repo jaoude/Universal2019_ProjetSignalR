@@ -19,6 +19,7 @@ namespace InciCafe.api.Controllers
         {
             _orderService = orderService;
         }
+
         [HttpGet]
         public async Task<ActionResult> Get(CancellationToken ct)
         {
@@ -27,26 +28,31 @@ namespace InciCafe.api.Controllers
 
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        // GET api/orders/5
+        [HttpGet("{id}", Name ="GetOrder")]
+        public async Task<IActionResult> GetOrder(int id, CancellationToken ct)
         {
-            return "value";
+            return null;
         }
 
-        // POST api/values
+        // POST api/orders
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto order, CancellationToken ct)
         {
+            var author = await _orderService.CreateOrderAsync(order, ct);
+            if (author == null )
+                return UnprocessableEntity();
+            else
+                return CreatedAtRoute("GetOrder", new { author.Id }, author);
         }
 
-        // PUT api/values/5
+        // PUT api/orders/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/orders/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

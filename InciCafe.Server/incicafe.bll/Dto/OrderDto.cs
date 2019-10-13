@@ -8,14 +8,16 @@ namespace InciCafe.BLL.Dto
     {
         public int Id { get; set; }
 
-        public int Client_Id { get; set; }
+        public int ClientId { get; set; }
 
-        public int Coffee_Id { get; set; }
+        public int CoffeeId { get; set; }
 
-        public DateTime Created_At { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public int Status_Id { get; set; }
+        public int StatusId { get; set; }
+        public string StatusName { get; set; }
+        public string ClientName { get; set; }
 
-
+        public string CoffeeName { get; set; }
     }
 }

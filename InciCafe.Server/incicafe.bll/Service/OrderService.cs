@@ -34,15 +34,22 @@ namespace InciCafe.BLL.Service
             return ordersDto;
         }
 
-        public async Task<int> CreateOrderAsync(CreateOrderDto createOrderDto, CancellationToken ct)
+        public async Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto, CancellationToken ct)
         {
-            Order ordersEntity = _mapper.Mapper.Map<Order>(createOrderDto);
-            _uow.Orders.CreateOrder(ordersEntity);
+            Order orderEntity = _mapper.Mapper.Map<Order>(createOrderDto);
+            orderEntity.CreatedAt = DateTime.UtcNow;
+            _uow.Orders.CreateOrder(orderEntity);
 
             if (await _uow.SaveChangesAsync(ct) > 0)
-                return ordersEntity.Id;
+            {
+                var ordeEntitySaved = await _uow.Orders.GetOrderAsync(orderEntity.Id, ct);
+                var orderDto = _mapper.Mapper.Map<OrderDto>(ordeEntitySaved);
+                return orderDto;
+            }
             else
-                return 0;
+            {
+                throw new Exception("An error occured while creating the coffee order.");
+            }
         }
     }
 }
