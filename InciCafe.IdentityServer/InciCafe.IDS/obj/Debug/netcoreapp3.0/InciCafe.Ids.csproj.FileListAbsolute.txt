@@ -63,3 +63,4 @@ C:\Dev\Other\ProjetSignalR\InciCafe.IdentityServer\InciCafe.Ids\obj\Debug\netcor
 C:\Dev\Other\ProjetSignalR\InciCafe.IdentityServer\InciCafe.Ids\obj\Debug\netcoreapp3.0\InciCafe.Ids.csproj.CopyComplete
 C:\Dev\Other\ProjetSignalR\InciCafe.IdentityServer\InciCafe.Ids\obj\Debug\netcoreapp3.0\InciCafe.Ids.dll
 C:\Dev\Other\ProjetSignalR\InciCafe.IdentityServer\InciCafe.Ids\obj\Debug\netcoreapp3.0\InciCafe.Ids.pdb
+C:\Dev\Other\ProjetSignalR\InciCafe.IdentityServer\InciCafe.Ids\obj\Debug\netcoreapp3.0\InciCafe.Ids.csprojAssemblyReference.cache

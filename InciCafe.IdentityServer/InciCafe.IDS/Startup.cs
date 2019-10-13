@@ -5,6 +5,7 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -23,8 +24,7 @@ namespace InciCafe.Ids
         {
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
-
-            var builder = services.AddIdentityServer()
+             var builder = services.AddIdentityServer()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApis())
                 .AddInMemoryClients(Config.GetClients())
@@ -50,6 +50,9 @@ namespace InciCafe.Ids
             // uncomment if you want to support static files
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseAuthorization();
+           
             app.UseIdentityServer();
 
             // uncomment, if you want to add an MVC-based UI
