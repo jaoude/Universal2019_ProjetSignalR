@@ -14,10 +14,13 @@ namespace InciCafe.BLL.Dto
 
         public DateTime CreatedAt { get; set; }
 
+
         public int StatusId { get; set; }
         public string StatusName { get; set; }
         public string ClientName { get; set; }
 
         public string CoffeeName { get; set; }
+
+        public string Size { get; set; }
     }
 }

@@ -15,5 +15,9 @@ namespace InciCafe.BLL.Dto
 
         [Required]
         public int StatusId { get; set; }
+
+        [Required]
+
+        public string Size { get; set; }
     }
 }

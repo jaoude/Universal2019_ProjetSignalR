@@ -79,6 +79,11 @@ namespace InciCafe.DAL.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
