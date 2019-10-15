@@ -24,4 +24,6 @@ namespace InciCafe.DAL.Entities
 
         public ICollection<Order> Orders { get; set; }
     }
+
+
 }

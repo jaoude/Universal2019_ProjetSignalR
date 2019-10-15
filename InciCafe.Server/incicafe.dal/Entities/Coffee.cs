@@ -16,7 +16,8 @@ namespace InciCafe.DAL.Entities
         [Required]
         [MaxLength(250)]
         public string Name { get; set; }
+        public byte[] Image { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+       
     }
 }

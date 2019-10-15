@@ -6,10 +6,10 @@ namespace InciCafe.BLL
 {
     public class CoffeeDto
     {
-
+        public int Id { get; set; }
         public string name { get; set; }
+        public byte[] Image { get; set; }
  
-        public ICollection<CoffeeDto> Coffees;
        
         
     }

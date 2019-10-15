@@ -15,6 +15,5 @@ namespace InciCafe.DAL.Entities
 
         public string Name { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
     }
 }

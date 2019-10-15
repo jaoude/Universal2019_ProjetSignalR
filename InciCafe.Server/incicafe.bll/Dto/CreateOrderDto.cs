@@ -19,5 +19,7 @@ namespace InciCafe.BLL.Dto
         [Required]
 
         public string Size { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }
