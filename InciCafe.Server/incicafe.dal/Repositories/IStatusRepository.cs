@@ -10,7 +10,7 @@ namespace InciCafe.DAL.Repositories
    public interface IStatusRepository : IRepository<Status>
     {
         Task<IEnumerable<Status>> GetStatusAsync(CancellationToken ct);
-        Task<Status> GetStatusAsync(Guid id, CancellationToken ct);
+        Task<Status> GetStatusAsync(int id, CancellationToken ct);
 
         void Createstatus(Status statusEntity);
     }

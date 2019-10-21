@@ -14,6 +14,8 @@ namespace InciCafe.DAL.UnitOfWork
         IClientRepository Clients { get; }
 
         IOrderRepository Orders { get; }
+        
+        IStatusRepository Status { get; }
 
         IStatusRepository Statuses { get; }
 

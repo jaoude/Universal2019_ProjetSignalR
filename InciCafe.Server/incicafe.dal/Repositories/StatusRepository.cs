@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InciCafe.DAL.Repositories
 {
-    class StatusRepository : Repository<Status>, IStatusRepository
+    public class StatusRepository : Repository<Status>, IStatusRepository
     {
         //private CoffeeContext context;
 
@@ -18,9 +18,9 @@ namespace InciCafe.DAL.Repositories
         {
 
         }
-        public async Task<Status> GetStatusAsync(Guid id, CancellationToken ct)
+        public async Task<Status> GetStatusAsync(int id, CancellationToken ct)
         {
-            return await _db.Set<Status>().FirstOrDefaultAsync(ct);
+            return await _db.Set<Status>().FirstOrDefaultAsync(d => d.Id == id, ct);
         }
 
         public async Task<IEnumerable<Status>> GetStatusAsync(CancellationToken ct)

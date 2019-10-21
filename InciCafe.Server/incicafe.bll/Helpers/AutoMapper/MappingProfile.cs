@@ -15,6 +15,7 @@ namespace InciOneSoft.BLL.Helpers
             CreateMap<Coffee, CoffeeDto>();
             CreateMap<CreateCoffeeDto, Coffee>();
             CreateMap<Client, ClientDto>();
+            CreateMap<Status, StatusDto>();
             CreateMap<CreateClientDto, Client>();
             CreateMap<Order, OrderDto>()
                   .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name))

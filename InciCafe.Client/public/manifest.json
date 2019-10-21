@@ -1,6 +1,10 @@
 {
   "short_name": "React App",
   "name": "Create React App Sample",
+  "permissions" :
+  [
+    "http://localhost:5002/api/orders"
+  ],
   "icons": [
     {
       "src": "favicon.ico",

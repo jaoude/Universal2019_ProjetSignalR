@@ -32,6 +32,9 @@ namespace InciCafe.DAL.Repositories
             _db.Set<Coffee>().Add(CoffeeEntity);
         }
 
-        
+        public async Task<Coffee> GetCoffeeAsync(string name, CancellationToken ct)
+        {
+            return await _db.Set<Coffee>().FirstOrDefaultAsync(d => d.Name == name, ct);
+        }
     }
 }

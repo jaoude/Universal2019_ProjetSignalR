@@ -11,6 +11,7 @@ namespace InciCafe.DAL.Repositories
     {
         Task<IEnumerable<Coffee>> GetCoffeesAsync(CancellationToken ct);
         Task<Coffee> GetCoffeeAsync(int id, CancellationToken ct);
+        Task<Coffee> GetCoffeeAsync(string name, CancellationToken ct);
 
         void CreateCoffee(Coffee personEntity);
     }

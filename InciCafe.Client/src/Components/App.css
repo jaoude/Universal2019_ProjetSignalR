@@ -1,14 +1,24 @@
 .App {
   text-align: center;
+  background-color: #282c34;
 }
-
+.MyOrders
+{
+  background-color: transparent;
+  color : white;
+  border : none;
+  margin : 10px;
+}
+.MyOrders:hover{
+  color : green
+}
 .Coffee-Logo {
   height: 40vmin;
   width: 40vmin;
 }
 
 .App-header {
-  background-color: #282c34;
+ 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,7 +31,7 @@
 .App-link {
   color: #09d3ac;
 }
-button 
+.order
 {
   margin : 10px;
   background-color : green;

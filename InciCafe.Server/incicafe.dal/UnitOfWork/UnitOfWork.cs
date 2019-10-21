@@ -22,7 +22,7 @@ namespace InciCafe.DAL.UnitOfWork
         public IStatusRepository Statuses => _serviceProvider.GetService<IStatusRepository>();
         public IOrderRepository Orders => _serviceProvider.GetService<IOrderRepository>();
         public IClientRepository Clients => _serviceProvider.GetService<IClientRepository>();
-
+        public IStatusRepository Status => _serviceProvider.GetService<IStatusRepository>();
 
         public void Dispose()
         {

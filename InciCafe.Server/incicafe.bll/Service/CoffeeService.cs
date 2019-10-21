@@ -41,6 +41,15 @@ namespace InciCafe.BLL.Service
                 return 0;
         }
 
+    
+
         
+
+        public async Task<CoffeeDto> GetCoffeeAsync(string name, CancellationToken ct)
+        {
+            Coffee coffeesEntity = await _uow.Coffees.GetCoffeeAsync(name, ct);
+            CoffeeDto coffeesDto = _mapper.Mapper.Map<CoffeeDto>(coffeesEntity);
+            return coffeesDto;
+        }
     }
 }

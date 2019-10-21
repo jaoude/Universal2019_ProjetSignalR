@@ -1,5 +1,6 @@
 ﻿using InciCafe.BLL.Dto;
 using InciCafe.BLL.Service;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,6 +10,7 @@ namespace InciCafe.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class OrdersController : ControllerBase
     {
         // GET api/values
@@ -28,12 +30,7 @@ namespace InciCafe.api.Controllers
 
         }
 
-        // GET api/orders/5
-        [HttpGet("{id}", Name ="GetOrder")]
-        public async Task<IActionResult> GetOrder(int id, CancellationToken ct)
-        {
-            return null;
-        }
+       
 
         // POST api/orders
         [HttpPost]

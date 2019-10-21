@@ -1,5 +1,6 @@
 ﻿using InciCafe.BLL.Service;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace InciCafe.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class CoffeesController : ControllerBase
     {
         // GET api/values
@@ -20,7 +22,7 @@ namespace InciCafe.api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        
         public async Task<ActionResult> Get(CancellationToken ct)
         {
             var liste = await _coffeeService.GetCoffeesAsync(ct);
@@ -28,11 +30,12 @@ namespace InciCafe.api.Controllers
             
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+       
+        [HttpGet("{name}")]
+        public async Task<int> GetAsync(string name, CancellationToken ct)
         {
-            return "value";
+            var liste = await _coffeeService.GetCoffeeAsync(name, ct);
+            return liste.Id;
         }
 
         // POST api/values
