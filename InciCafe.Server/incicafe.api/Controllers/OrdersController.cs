@@ -40,7 +40,7 @@ namespace InciCafe.api.Controllers
             if (author == null )
                 return UnprocessableEntity();
             else
-                return CreatedAtRoute("GetOrder", new { author.Id }, author);
+                return CreatedAtRoute( new { author.Id }, author);
         }
       
         // PUT api/orders/5

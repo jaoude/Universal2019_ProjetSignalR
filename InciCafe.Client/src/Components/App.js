@@ -17,6 +17,7 @@ class App extends React.Component {
                 <header className="App-header">
                     
                     <img className="Coffee-Logo" src={coffee} alt="logo" />
+                    <form>
 
                     <p>Choose your Coffee :</p>
 
@@ -35,10 +36,12 @@ class App extends React.Component {
                         <option value="M">M</option>
                         <option value="S">S</option>
                     </select>
+
                    
 
-                    <button className="order">Order</button>
+                    <button type="submit" onClick={()=>this.httpClient.post(()=>this.CreatePostBody())} className="order">Order</button>
                     <div id="orders"></div>
+                    </form>
                    
                 </header>
             </div>
@@ -51,6 +54,8 @@ class App extends React.Component {
         this.httpClient.get();
 
         var items = JSON.parse( localStorage[1])
+
+        
         
     
       
@@ -58,15 +63,19 @@ class App extends React.Component {
    
         for (var i = 0 ; i<items.length;i++)
         {
-            var coffee = this.httpClient.getCoffeeById(parseInt(items[i].coffeeId));
-            console.log(coffee);
-            var status = this.httpClient.getStatusById(parseInt(items[i].statusId));
+            
+            
+            
+            this.httpClient.getCoffeeById(items[i].coffeeId);
+            this.httpClient.getStatusById(parseInt(items[i].statusId));
+
+
             var div = document.getElementById("orders");
             console.log(div)
             var coffee_p = document.createElement("p");
-            coffee_p.innerHTML ="<p>"+coffee+"</p>";
+            coffee_p.innerHTML ="<p>"+localStorage[2]+"</p>";
             var status_p = document.createElement("p");
-            status_p.innerHTML ="<p>"+status+"</p>";
+            status_p.innerHTML ="<p>"+localStorage[3]+"</p>";
 
             div.append(coffee_p);
             div.append(status_p)
@@ -77,19 +86,22 @@ class App extends React.Component {
     
     CreatePostBody()
     {
-        var coffee_type = document.getElementById("Coffees").options[document.getElementById("Coffees").options.selectedIndex].value
-        
+       
         var size =  document.getElementById("Sizes").options[document.getElementById("Sizes").options.selectedIndex].value;
        
 
-        var coffee_id = this.httpClient.getCoffee(coffee_type);
-        var obj = new Object();
-   obj.CoffeeId =coffee_id;
+    var coffee_id = document.getElementById("Coffees").options.selectedIndex;
+    
+    var obj = new Object();
+   obj.CoffeeId = coffee_id+1;
    obj.ClientId = 1;
    obj.StatusId = 1;
    obj.Size = size;
 
    var body = JSON.stringify(obj);
+   console.log(typeof(body))
+
+
    
    return body;
  

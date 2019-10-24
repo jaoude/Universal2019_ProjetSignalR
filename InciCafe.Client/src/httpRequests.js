@@ -2,7 +2,7 @@ class HttpClient {
 	
 	post(body) {
 		var xhr = new XMLHttpRequest();
-		xhr.open('POST', "http://localhost:5002/orders"); // url est le lien pour le api
+		xhr.open('POST', "http://localhost:5002/api/orders"); // url est le lien pour le api
 		xhr.send(body); // Les donnees que l'on va envoyer
 		xhr.addEventListener('load', () => {
 			console.log(xhr.responseText);// reponse de la requete 
@@ -59,6 +59,7 @@ class HttpClient {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 				 // var json_obj = JSON.parse(xhr.responseText);
+				 localStorage.setItem(3,xhr.responseText)
 				  
 				 return xhr.responseText
 				} else {
@@ -91,7 +92,8 @@ class HttpClient {
 			//console.log(xhr.responseText)
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-				  return xhr.statusText;
+					
+				  localStorage.setItem(2,xhr.responseText) 
 				} else {
 				  console.error(xhr.statusText);
 				}
@@ -122,9 +124,9 @@ class HttpClient {
 			//console.log(xhr.responseText)
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-				  var json_obj = JSON.parse(xhr.responseText);
+				  localStorage.setItem(4,xhr.responseText)
 				  
-				  console.log(json_obj);
+				  
 				} else {
 				  console.error(xhr.statusText);
 				}
