@@ -2,12 +2,14 @@ import React from 'react';
 import HttpClient from '../httpRequests';
 import './App.css';
 import coffee from '../Assets/coffee.jpg';
+import axiosRequests from '../axiosRequests.js';
 
 
 
 class App extends React.Component {
 
     httpClient = new HttpClient(); 
+    axiosClient = new axiosRequests();
 
     render() {
         return (
@@ -17,7 +19,7 @@ class App extends React.Component {
                 <header className="App-header">
                     
                     <img className="Coffee-Logo" src={coffee} alt="logo" />
-                    <form>
+                    
 
                     <p>Choose your Coffee :</p>
 
@@ -39,21 +41,24 @@ class App extends React.Component {
 
                    
 
-                    <button type="submit" onClick={()=>this.httpClient.post(()=>this.CreatePostBody())} className="order">Order</button>
+                    <button  onClick={()=>this.axiosClient.postOrder(()=>this.CreatePostBody())} value ="Order">order</button>
                     <div id="orders"></div>
-                    </form>
+                    
                    
                 </header>
             </div>
+           
         );
     }
     showOrders()
     {
     
     
-        this.httpClient.get();
+        this.axiosClient.get();
 
         var items = JSON.parse( localStorage[1])
+     
+      //this.axiosClient.getStatusById(1);
 
         
         
@@ -61,13 +66,18 @@ class App extends React.Component {
       
       
    
-        for (var i = 0 ; i<items.length;i++)
+        for (var i = 0 ; i<items.length ; i++)
         {
             
             
             
-            this.httpClient.getCoffeeById(items[i].coffeeId);
-            this.httpClient.getStatusById(parseInt(items[i].statusId));
+            this.axiosClient.getCoffeeById(items[i].coffeeId);
+            console.log('Coffee by Id :'+localStorage[2]);
+            this.axiosClient.getStatusById(items[i].statusId);
+            console.log('status by Id :'+localStorage[3]);
+
+           
+
 
 
             var div = document.getElementById("orders");
@@ -97,13 +107,14 @@ class App extends React.Component {
    obj.ClientId = 1;
    obj.StatusId = 1;
    obj.Size = size;
-
-   var body = JSON.stringify(obj);
-   console.log(typeof(body))
-
+   
 
    
-   return body;
+   
+
+    console.log(obj)
+   
+   return obj;
  
  
 
