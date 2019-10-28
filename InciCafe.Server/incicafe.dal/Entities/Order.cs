@@ -26,12 +26,6 @@ namespace InciCafe.DAL.Entities
         [ForeignKey("StatusId")]
         public Status Status { get; set; }
         public int StatusId { get; set; }
-
-
-        
         public string Size { get; set; }
-
-        
-
     }
 }

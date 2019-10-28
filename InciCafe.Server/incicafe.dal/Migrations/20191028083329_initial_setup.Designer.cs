@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InciCafe.DAL.Migrations
 {
     [DbContext(typeof(InciCafeDbContext))]
-    [Migration("20191013175705_adjust_naming_order_table_5")]
-    partial class adjust_naming_order_table_5
+    [Migration("20191028083329_initial_setup")]
+    partial class initial_setup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,29 @@ namespace InciCafe.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("Id");
+
                     b.ToTable("Client");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 0,
+                            Email = "Philippe.h99@gmail.com",
+                            FirstName = "Philippe",
+                            LastName = "Harb"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 0,
+                            Email = "rayankazouiny@hotmail.com",
+                            FirstName = "Rayan",
+                            LastName = "Kazouiny"
+                        });
                 });
 
             modelBuilder.Entity("InciCafe.DAL.Entities.Coffee", b =>
@@ -55,6 +77,9 @@ namespace InciCafe.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(250)")
@@ -63,6 +88,28 @@ namespace InciCafe.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Coffee");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Espresso"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Latte"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Americano"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Cappuccino"
+                        });
                 });
 
             modelBuilder.Entity("InciCafe.DAL.Entities.Order", b =>
@@ -80,6 +127,9 @@ namespace InciCafe.DAL.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -108,6 +158,28 @@ namespace InciCafe.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Received"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "In-Progress"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Ready for Pick-up"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Delivered"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -315,7 +387,7 @@ namespace InciCafe.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("InciCafe.DAL.Entities.Coffee", "Coffee")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CoffeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

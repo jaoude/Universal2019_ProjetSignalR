@@ -47,7 +47,7 @@ namespace InciCafe.Api
             services.AddTransient<IOrderService,OrderService>();
             services.AddTransient<IServiceBase, ServiceBase>();
             
-            services.AddTransient<IStatusService, StatusService>();
+            //services.AddTransient<IStatusService, StatusService>();
             services.AddTransient<IStatusRepository, StatusRepository>();
          
         

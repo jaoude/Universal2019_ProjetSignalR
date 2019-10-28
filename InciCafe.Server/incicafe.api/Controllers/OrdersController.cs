@@ -36,11 +36,14 @@ namespace InciCafe.api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto order, CancellationToken ct)
         {
-            var author = await _orderService.CreateOrderAsync(order, ct);
-            if (author == null )
+            order.ClientId = 1;
+            order.CoffeeId = 1;
+
+            var orderDto = await _orderService.CreateOrderAsync(order, ct);
+            if (orderDto == null )
                 return UnprocessableEntity();
             else
-                return CreatedAtRoute( new { author.Id }, author);
+                return CreatedAtRoute( new { orderDto.Id }, orderDto);
         }
       
         // PUT api/orders/5

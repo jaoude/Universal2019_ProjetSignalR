@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InciCafe.DAL.Migrations
 {
-    public partial class Initial_Setup : Migration
+    public partial class initial_setup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,7 +68,8 @@ namespace InciCafe.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 250, nullable: false)
+                    Name = table.Column<string>(maxLength: 250, nullable: false),
+                    Image = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,7 +82,7 @@ namespace InciCafe.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Status_Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -195,37 +196,69 @@ namespace InciCafe.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    created_at = table.Column<DateTime>(nullable: false),
-                    Client_Id = table.Column<int>(nullable: false),
-                    Coffee_Id = table.Column<int>(nullable: false),
-                    Status_Id = table.Column<int>(nullable: false)
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    ClientId = table.Column<int>(nullable: false),
+                    CoffeeId = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    Size = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Client_Client_Id",
-                        column: x => x.Client_Id,
+                        name: "FK_Order_Client_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Coffee_Coffee_Id",
-                        column: x => x.Coffee_Id,
+                        name: "FK_Order_Coffee_CoffeeId",
+                        column: x => x.CoffeeId,
                         principalTable: "Coffee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Status_Status_Id",
-                        column: x => x.Status_Id,
+                        name: "FK_Order_Status_StatusId",
+                        column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Client",
+                columns: new[] { "Id", "Age", "Email", "FirstName", "LastName" },
+                values: new object[,]
+                {
+                    { 1, 0, "Philippe.h99@gmail.com", "Philippe", "Harb" },
+                    { 2, 0, "rayankazouiny@hotmail.com", "Rayan", "Kazouiny" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Coffee",
+                columns: new[] { "Id", "Image", "Name" },
+                values: new object[,]
+                {
+                    { 1, null, "Espresso" },
+                    { 2, null, "Latte" },
+                    { 3, null, "Americano" },
+                    { 4, null, "Cappuccino" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Status",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Received" },
+                    { 2, "In-Progress" },
+                    { 3, "Ready for Pick-up" },
+                    { 4, "Delivered" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -268,19 +301,25 @@ namespace InciCafe.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_Client_Id",
-                table: "Orders",
-                column: "Client_Id");
+                name: "Id",
+                table: "Client",
+                column: "Id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_Coffee_Id",
-                table: "Orders",
-                column: "Coffee_Id");
+                name: "IX_Order_ClientId",
+                table: "Order",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_Status_Id",
-                table: "Orders",
-                column: "Status_Id");
+                name: "IX_Order_CoffeeId",
+                table: "Order",
+                column: "CoffeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_StatusId",
+                table: "Order",
+                column: "StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -301,7 +340,7 @@ namespace InciCafe.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
