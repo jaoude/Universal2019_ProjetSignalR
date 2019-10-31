@@ -38,6 +38,8 @@ namespace InciCafe.BLL.Service
         {
             Order orderEntity = _mapper.Mapper.Map<Order>(createOrderDto);
             orderEntity.CreatedAt = DateTime.UtcNow;
+            orderEntity.StatusId = 1;
+
             _uow.Orders.CreateOrder(orderEntity);
 
             if (await _uow.SaveChangesAsync(ct) > 0)

@@ -49,60 +49,48 @@ namespace InciCafe.DAL
 
 
             modelbuilder.Entity<Coffee>().HasData(
-       new Coffee
-       {
-           Id = 1,
-           Name = "Espresso",
-           Image = ImgToByteArray(@"../Images/Espresso.png")
+                new Coffee
+                {
+                    Id = 1,
+                    Name = "Espresso",
+                //    Image = ImgToByteArray(@"../Images/Espresso.png")
 
-       },
-        new Coffee
-        {
-            Id = 2,
-            Name = "Latte",
-            Image = ImgToByteArray(@"../Images/Latte.png")
+                },
+                new Coffee
+                {
+                    Id = 2,
+                    Name = "Latte",
+                    //   Image = ImgToByteArray(@"../Images/Latte.png")
 
-        },
-        new Coffee
-        {
-            Id = 3,
-            Name = "Americano",
-            Image = ImgToByteArray(@"../Images/Americano.png")
-        },
-        new Coffee
-        {
-            Id = 4,
-            Name = "Cappuccino",
-            Image = ImgToByteArray(@"../Images/Cappuccino.png")
-        }
-
-
-
-
-   );
+                },
+                new Coffee
+                {
+                    Id = 3,
+                    Name = "Americano",
+                //    Image = ImgToByteArray(@"../Images/Americano.png")
+                },
+                new Coffee
+                {
+                    Id = 4,
+                    Name = "Cappuccino",
+                    //   Image = ImgToByteArray(@"../Images/Cappuccino.png")
+                }
+                );
+        
             modelbuilder.Entity<Client>().HasIndex(e => e.Id)
-             .HasName("Id")
-             .IsUnique();
+            .HasName("Id")
+            .IsUnique();
+
             modelbuilder.Entity<Client>().HasData(
-new Client
-{
-    Id = 1,
-    FirstName = "Philippe",
-    LastName = "Harb",
-    Email = "Philippe.h99@gmail.com"
+            new Client
+            {
+                Id = 1,
+                FirstName = "Philippe",
+                LastName = "Harb",
+                Email = "Philippe.h99@gmail.com"
 
 
-},
-new Client
-{
-    Id =2,
-    FirstName = "Rayan",
-    LastName = "Kazouiny",
-    Email = "rayankazouiny@hotmail.com"
-
-}
-);
-
+<<<<<<< HEAD
         }
 
         public byte[] ImgToByteArray(string FileName)
@@ -110,12 +98,26 @@ new Client
         {
             var img = Image.FromFile(FileName);
             using (MemoryStream mStream = new MemoryStream())
+=======
+            },
+            new Client
+>>>>>>> 65d5deaa050bfaa85aabe0cdb2084ab7fb1b22aa
             {
-                img.Save(mStream, img.RawFormat);
-                return mStream.ToArray();
+                Id =2,
+                FirstName = "Rayan",
+                LastName = "Kazouiny",
+                Email = "rayankazouiny@hotmail.com"
+
             }
+            );
+
+            modelbuilder.Entity<Status>().HasData(
+            new Status { Id = 1, Name = "Received" },
+            new Status { Id = 2, Name = "In-Progress" },
+            new Status { Id = 3, Name = "Ready for Pick-up" },
+            new Status { Id = 4, Name = "Delivered" }
+            );
+
         }
-
-
     }
 }

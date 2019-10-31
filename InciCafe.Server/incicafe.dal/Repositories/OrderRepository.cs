@@ -21,16 +21,20 @@ namespace InciCafe.DAL.Repositories
             .Include(c => c.Coffee)
             .Include(c => c.Client)
             .Include(c => c.Status)
-            .FirstOrDefaultAsync(ct);
+            .FirstOrDefaultAsync (c => c.Id == id, ct);
 
         public async Task<IEnumerable<Order>> GetOrdersAsync(CancellationToken ct)
         {
-            return await _db.Set<Order>().ToListAsync(ct);
+            return await _db.Set<Order>()
+            .Include(c => c.Coffee)
+            .Include(c => c.Client)
+            .Include(c => c.Status)
+            .ToListAsync(ct);
         }
 
-        public void CreateOrder(Order personEntity)
+        public void CreateOrder(Order orderEntity)
         {
-            _db.Set<Order>().Add(personEntity);
+            _db.Set<Order>().Add(orderEntity);
         }
 
         public void UpdateStatusOrder(Order orderEntity)

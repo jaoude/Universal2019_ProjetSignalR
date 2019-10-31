@@ -43,7 +43,7 @@ class axiosRequests
         const response =  Axios.post(
             'http://localhost:5002/api/orders/',
             {   "ClientId" : body.ClientId,
-                "StatusId" : 2,
+                "StatusId" : 5,
                 "Size" : body.Size,
                 "CoffeeId" : body.CoffeeId },
             { headers: { 'Content-Type': 'application/json' },

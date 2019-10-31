@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InciCafe.dal\InciCafe.DAL.csproj" />
+    <ProjectReference Include="..\incicafe.dal\InciCafe.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
