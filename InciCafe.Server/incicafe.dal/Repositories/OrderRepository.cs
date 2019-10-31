@@ -33,5 +33,9 @@ namespace InciCafe.DAL.Repositories
             _db.Set<Order>().Add(personEntity);
         }
 
+        public void UpdateStatusOrder(Order orderEntity)
+        {
+            _db.Set<Order>().Update(orderEntity);
+        }
     }
 }

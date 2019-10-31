@@ -13,6 +13,8 @@ namespace InciCafe.DAL.Repositories
         Task<IEnumerable<Order>> GetOrdersAsync(CancellationToken ct);
         Task<Order> GetOrderAsync(int id, CancellationToken ct);
 
+        void UpdateStatusOrder(int id, CancellationToken ct);
+
         void CreateOrder(Order orderEntity);
     }
 }

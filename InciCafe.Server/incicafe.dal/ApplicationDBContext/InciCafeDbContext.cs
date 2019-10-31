@@ -25,6 +25,28 @@ namespace InciCafe.DAL
         {
             base.OnModelCreating(modelbuilder);
 
+            modelbuilder.Entity<Status>().HasData(
+                new Status
+                { Id = 1,
+                    Name = "Ordered"
+                },
+                new Status
+                { Id = 2,
+                    Name = "In preparation",
+                },
+                new Status
+                { Id = 3,
+                Name = "Being delivered"},
+                new Status
+                { 
+                    Id = 4,
+                    Name = "Delivered"
+                }
+
+
+
+                ); 
+
 
             modelbuilder.Entity<Coffee>().HasData(
        new Coffee
@@ -82,6 +104,7 @@ new Client
 );
 
         }
+
         public byte[] ImgToByteArray(string FileName)
 
         {

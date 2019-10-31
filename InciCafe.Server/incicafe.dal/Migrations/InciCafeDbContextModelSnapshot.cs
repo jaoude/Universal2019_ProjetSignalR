@@ -160,6 +160,28 @@ namespace InciCafe.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Ordered"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "In preparation"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Being delivered"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Delivered"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
