@@ -41,7 +41,7 @@ class App extends React.Component {
 
                    
 
-                    <button  onClick={()=>this.axiosClient.postOrder(()=>this.CreatePostBody())} value ="Order">order</button>
+                    <button  onClick={()=>this.axiosClient.postOrder()} value ="Order">order</button>
                     <div id="orders"></div>
                     
                    
@@ -57,6 +57,7 @@ class App extends React.Component {
         this.axiosClient.get();
 
         var items = JSON.parse( localStorage[1])
+        console.log(items);
      
       //this.axiosClient.getStatusById(1);
 
@@ -105,13 +106,16 @@ class App extends React.Component {
     var obj = new Object();
    obj.CoffeeId = coffee_id+1;
    obj.ClientId = 1;
-   obj.StatusId = 1;
+   obj.StatusId = 2;
    obj.Size = size;
    
 
    
    
 
+    
+
+    JSON.stringify(obj)
     console.log(obj)
    
    return obj;
