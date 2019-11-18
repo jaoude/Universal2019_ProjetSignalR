@@ -30,6 +30,12 @@ namespace InciCafe.api.Controllers
 
         }
 
+      [HttpGet("update")]
+        public void UpdateStatus(CancellationToken ct)
+        {
+            _orderService.UpdateOrderStatus(ct);
+        }
+
        
 
         // POST api/orders

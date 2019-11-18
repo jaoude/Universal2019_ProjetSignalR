@@ -57,6 +57,7 @@ namespace InciCafe.Api
             services.AddTransient<ICoffeeRepository, CoffeeRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<DbContext, InciCafeDbContext>();
 
             services.AddTransient<IServiceBase, ServiceBase>();
             services.AddTransient<IAutoMapperService, AutoMapperService>();
