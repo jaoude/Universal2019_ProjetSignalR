@@ -13,6 +13,9 @@ using Microsoft.IdentityModel.Logging;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 
+
+
+
 namespace InciCafe.Api
 {
     public class Startup
@@ -49,6 +52,8 @@ namespace InciCafe.Api
             
             //services.AddTransient<IStatusService, StatusService>();
             services.AddTransient<IStatusRepository, StatusRepository>();
+
+            services.AddSignalR();
          
         
 
@@ -61,6 +66,7 @@ namespace InciCafe.Api
 
             services.AddTransient<IServiceBase, ServiceBase>();
             services.AddTransient<IAutoMapperService, AutoMapperService>();
+            services.AddSignalR();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -101,6 +107,8 @@ namespace InciCafe.Api
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
+         
+            
       
             app.UseEndpoints(endpoints =>
             {

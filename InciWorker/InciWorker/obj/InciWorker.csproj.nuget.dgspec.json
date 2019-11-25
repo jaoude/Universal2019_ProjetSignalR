@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\source\\repos\\InciWorker\\InciWorker\\InciWorker.csproj": {}
+    "C:\\Users\\PC\\Desktop\\test\\ProjetSignalR\\InciWorker\\InciWorker\\InciWorker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\source\\repos\\InciWorker\\InciWorker\\InciWorker.csproj": {
+    "C:\\Users\\PC\\Desktop\\test\\ProjetSignalR\\InciWorker\\InciWorker\\InciWorker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\source\\repos\\InciWorker\\InciWorker\\InciWorker.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\test\\ProjetSignalR\\InciWorker\\InciWorker\\InciWorker.csproj",
         "projectName": "InciWorker",
-        "projectPath": "C:\\Users\\PC\\source\\repos\\InciWorker\\InciWorker\\InciWorker.csproj",
+        "projectPath": "C:\\Users\\PC\\Desktop\\test\\ProjetSignalR\\InciWorker\\InciWorker\\InciWorker.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\source\\repos\\InciWorker\\InciWorker\\obj\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\test\\ProjetSignalR\\InciWorker\\InciWorker\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

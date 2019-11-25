@@ -31,9 +31,11 @@ namespace InciCafe.api.Controllers
         }
 
       [HttpGet("update")]
-        public void UpdateStatus(CancellationToken ct)
+        public async Task<ActionResult> UpdateStatus(CancellationToken ct)
         {
-            _orderService.UpdateOrderStatus(ct);
+            await _orderService.UpdateOrderStatus(ct);
+            return Ok();
+
         }
 
        

@@ -54,9 +54,9 @@ namespace InciCafe.BLL.Service
             }
         }
 
-        public  void UpdateOrderStatus(CancellationToken ct)
+        public  async Task UpdateOrderStatus(CancellationToken ct)
         {
-             _uow.Orders.UpdateStatus(ct);
+             await _uow.Orders.UpdateStatus(ct);
         }
     }
 }

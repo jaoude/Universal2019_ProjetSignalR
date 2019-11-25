@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.SignalR;
 
 namespace InciCafe.DAL.Repositories
 {
@@ -42,7 +43,7 @@ namespace InciCafe.DAL.Repositories
             _db.Set<Order>().Add(orderEntity);
         }
 
-        public async void UpdateStatus(CancellationToken ct)
+        public async Task UpdateStatus(CancellationToken ct)
         {
             IEnumerable<Order> liste = await GetOrdersAsync(ct);
            List<Order> liste1 = liste.ToList();
@@ -59,6 +60,8 @@ namespace InciCafe.DAL.Repositories
             }
 
            await  _db.SaveChangesAsync(ct);
+
+          
 
 
 

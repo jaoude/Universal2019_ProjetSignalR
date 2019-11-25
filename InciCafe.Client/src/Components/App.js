@@ -6,10 +6,23 @@ import axiosRequests from '../axiosRequests.js';
 
 
 
+
 class App extends React.Component {
 
     httpClient = new HttpClient(); 
     axiosClient = new axiosRequests();
+    componentDidMount = () => {
+        const nick = window.prompt('Your name:', 'John');
+      
+        const hubConnection = new HubConnection('http://localhost:5000/chat');
+      
+        this.setState({ hubConnection, nick }, () => {
+          this.state.hubConnection
+            .start()
+            .then(() => console.log('Connection started!'))
+            .catch(err => console.log('Error while establishing connection :('));
+        });
+      }
 
     render() {
         return (

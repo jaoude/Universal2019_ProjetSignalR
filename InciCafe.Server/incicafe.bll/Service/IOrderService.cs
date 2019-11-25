@@ -13,6 +13,6 @@ namespace InciCafe.BLL.Service
         Task<OrderDto> GetOrderAsync(int id, CancellationToken ct);
         Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto, CancellationToken ct);
 
-        void UpdateOrderStatus(CancellationToken ct);
+        Task UpdateOrderStatus(CancellationToken ct);
     }
 }
