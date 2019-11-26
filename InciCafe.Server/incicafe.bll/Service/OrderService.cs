@@ -53,5 +53,10 @@ namespace InciCafe.BLL.Service
                 throw new Exception("An error occured while creating the coffee order.");
             }
         }
+
+        public  async Task UpdateOrderStatus(CancellationToken ct)
+        {
+             await _uow.Orders.UpdateStatus(ct);
+        }
     }
 }

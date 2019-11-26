@@ -161,29 +161,17 @@ namespace InciCafe.DAL.Migrations
                         new
                         {
                             Id = 1,
-<<<<<<< HEAD
-                            Name = "Ordered"
-=======
                             Name = "Received"
->>>>>>> 65d5deaa050bfaa85aabe0cdb2084ab7fb1b22aa
                         },
                         new
                         {
                             Id = 2,
-<<<<<<< HEAD
-                            Name = "In preparation"
-=======
                             Name = "In-Progress"
->>>>>>> 65d5deaa050bfaa85aabe0cdb2084ab7fb1b22aa
                         },
                         new
                         {
                             Id = 3,
-<<<<<<< HEAD
-                            Name = "Being delivered"
-=======
                             Name = "Ready for Pick-up"
->>>>>>> 65d5deaa050bfaa85aabe0cdb2084ab7fb1b22aa
                         },
                         new
                         {

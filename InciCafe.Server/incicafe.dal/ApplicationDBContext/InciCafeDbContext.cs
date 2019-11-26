@@ -25,28 +25,6 @@ namespace InciCafe.DAL
         {
             base.OnModelCreating(modelbuilder);
 
-            modelbuilder.Entity<Status>().HasData(
-                new Status
-                { Id = 1,
-                    Name = "Ordered"
-                },
-                new Status
-                { Id = 2,
-                    Name = "In preparation",
-                },
-                new Status
-                { Id = 3,
-                Name = "Being delivered"},
-                new Status
-                { 
-                    Id = 4,
-                    Name = "Delivered"
-                }
-
-
-
-                ); 
-
 
             modelbuilder.Entity<Coffee>().HasData(
                 new Coffee
@@ -90,18 +68,8 @@ namespace InciCafe.DAL
                 Email = "Philippe.h99@gmail.com"
 
 
-<<<<<<< HEAD
-        }
-
-        public byte[] ImgToByteArray(string FileName)
-
-        {
-            var img = Image.FromFile(FileName);
-            using (MemoryStream mStream = new MemoryStream())
-=======
             },
             new Client
->>>>>>> 65d5deaa050bfaa85aabe0cdb2084ab7fb1b22aa
             {
                 Id =2,
                 FirstName = "Rayan",

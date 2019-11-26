@@ -1,10 +1,13 @@
 ﻿using InciCafe.DAL.Entities;
+using InciCafe.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.AspNetCore.SignalR;
 
 namespace InciCafe.DAL.Repositories
 {
@@ -12,9 +15,12 @@ namespace InciCafe.DAL.Repositories
     {
         //private CoffeeContext _context;
 
+        
+        
+
         public OrderRepository(InciCafeDbContext _db) : base(_db)
         {
-
+         
         }
         public async Task<Order> GetOrderAsync(int id, CancellationToken ct) => 
             await _db.Set<Order>()
@@ -37,9 +43,31 @@ namespace InciCafe.DAL.Repositories
             _db.Set<Order>().Add(orderEntity);
         }
 
-        public void UpdateStatusOrder(Order orderEntity)
+        public async Task UpdateStatus(CancellationToken ct)
         {
-            _db.Set<Order>().Update(orderEntity);
+            IEnumerable<Order> liste = await GetOrdersAsync(ct);
+           List<Order> liste1 = liste.ToList();
+
+            Random r = new Random();
+           
+            
+
+            for (int i = 0; i < liste1.Count(); i++)
+            {
+                liste1[i].StatusId = r.Next(5, 8);
+                _db.Set<Order>().Update(liste1[i]);
+
+            }
+
+           await  _db.SaveChangesAsync(ct);
+
+          
+
+
+
+          
+
+           
         }
     }
 }

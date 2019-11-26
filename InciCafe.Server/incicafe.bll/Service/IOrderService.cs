@@ -11,7 +11,8 @@ namespace InciCafe.BLL.Service
     {
         Task<IEnumerable<OrderDto>> GetOrdersAsync(CancellationToken ct);
         Task<OrderDto> GetOrderAsync(int id, CancellationToken ct);
-       
         Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto, CancellationToken ct);
+
+        Task UpdateOrderStatus(CancellationToken ct);
     }
 }

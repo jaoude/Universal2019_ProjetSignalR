@@ -1,4 +1,5 @@
-﻿using InciCafe.BLL.Dto;
+﻿using InciCafe.Api;
+using InciCafe.BLL.Dto;
 using InciCafe.BLL.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace InciCafe.api.Controllers
     {
         // GET api/values
         private readonly IOrderService _orderService;
+        
 
 
         public OrdersController(IOrderService orderService)
@@ -30,6 +32,16 @@ namespace InciCafe.api.Controllers
 
         }
 
+      [HttpGet("update")]
+        public async Task<ActionResult> UpdateStatus(CancellationToken ct)
+        {
+            await _orderService.UpdateOrderStatus(ct);
+
+
+            return Ok();
+
+        }
+
        
 
         // POST api/orders
@@ -38,6 +50,15 @@ namespace InciCafe.api.Controllers
         {
             order.ClientId = 1;
             order.CoffeeId = 1;
+
+            ChatHub hub = new ChatHub();
+
+            for (int i = 0; i < 100; i++)
+            {
+                await Task.Delay(6000);
+                await hub.SendMessage("phil", "message");
+
+            }
 
             var orderDto = await _orderService.CreateOrderAsync(order, ct);
             if (orderDto == null )

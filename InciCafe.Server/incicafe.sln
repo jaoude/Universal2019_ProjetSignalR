@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InciCafe.BLL", "incicafe.bl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InciCafe.DAL", "incicafe.dal\InciCafe.DAL.csproj", "{935C66CB-7BAE-47BF-AF40-ACE3643A966E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InciCafe.Api", "InciCafe.Api\InciCafe.Api.csproj", "{EFA0B365-6FAC-4599-B057-0BC998A5E4A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InciCafe.Api", "InciCafe.Api\InciCafe.Api.csproj", "{EFA0B365-6FAC-4599-B057-0BC998A5E4A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -18,8 +18,6 @@ namespace InciCafe.DAL.Repositories
         {
 
         }
-
-        
         public async Task<Status> GetStatusAsync(int id, CancellationToken ct)
         {
             return await _db.Set<Status>().FirstOrDefaultAsync(d => d.Id == id, ct);
