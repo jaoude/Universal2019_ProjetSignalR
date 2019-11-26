@@ -3,13 +3,36 @@ import HttpClient from '../httpRequests';
 import './App.css';
 import coffee from '../Assets/coffee.jpg';
 import axiosRequests from '../axiosRequests.js';
+import HubConnection from 'signalr-client'
 
 
 
-class App extends React.Component {
+
+class App extends React.Component 
+{
 
     httpClient = new HttpClient(); 
     axiosClient = new axiosRequests();
+    componentDidMount = () => {
+        const nick = window.prompt('Your name:', 'John');
+    
+        const hubConnection = new HubConnection('/ChatHub');
+    
+        this.setState({ hubConnection, nick }, () => {
+          this.state.hubConnection
+            .start()
+            .then(() => console.log('Connection started!'))
+            .catch(err => console.log('Error while establishing connection :('));
+    
+          this.state.hubConnection.on('ReceiveMessage', (nick, receivedMessage) => {
+            const text = `${nick}: ${receivedMessage}`;
+            const messages = this.state.messages.concat([text]);
+            this.setState({ messages });
+          });
+        });
+      }
+
+ 
 
     render() {
         return (
@@ -50,6 +73,7 @@ class App extends React.Component {
            
         );
     }
+    
     showOrders()
     {
     
