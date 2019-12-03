@@ -3,6 +3,7 @@ using InciCafe.BLL.Dto;
 using InciCafe.BLL.Service;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace InciCafe.api.Controllers
             for (int i = 0; i < 100; i++)
             {
                 await Task.Delay(6000);
-                await hub.SendMessage("phil", "message");
+                await hub.SendMessage( DateTime.Now.ToString());
 
             }
 

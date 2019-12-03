@@ -3,7 +3,7 @@ import HttpClient from '../httpRequests';
 import './App.css';
 import coffee from '../Assets/coffee.jpg';
 import axiosRequests from '../axiosRequests.js';
-import HubConnection from 'signalr-client'
+import * as signalR from '@aspnet/signalr';
 
 
 
@@ -13,24 +13,32 @@ class App extends React.Component
 
     httpClient = new HttpClient(); 
     axiosClient = new axiosRequests();
+    
     componentDidMount = () => {
-        const nick = window.prompt('Your name:', 'John');
-    
-        const hubConnection = new HubConnection('/ChatHub');
-    
-        this.setState({ hubConnection, nick }, () => {
-          this.state.hubConnection
+     
+       let  connection = new signalR.HubConnectionBuilder()
+    .withUrl("http://localhost:5002/chatHub")
+    .build();
+    /*
+      
+        this.setState({ connection, nick }, () => {
+          this.state.connection
             .start()
             .then(() => console.log('Connection started!'))
             .catch(err => console.log('Error while establishing connection :('));
     
-          this.state.hubConnection.on('ReceiveMessage', (nick, receivedMessage) => {
+          this.state.connection.on('ReceiveMessage', (nick, receivedMessage) => {
             const text = `${nick}: ${receivedMessage}`;
             const messages = this.state.messages.concat([text]);
             this.setState({ messages });
           });
-        });
-      }
+       */
+      connection.on("ReceiveMessage", data => {
+        alert('a')
+  
+    });
+        
+    }
 
  
 
@@ -116,6 +124,7 @@ class App extends React.Component
             div.append(status_p)
 
         }
+       
     }
   
     
