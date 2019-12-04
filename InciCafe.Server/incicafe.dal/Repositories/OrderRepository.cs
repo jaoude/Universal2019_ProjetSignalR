@@ -15,6 +15,7 @@ namespace InciCafe.DAL.Repositories
     {
         //private CoffeeContext _context;
 
+
         
         
 
@@ -46,20 +47,24 @@ namespace InciCafe.DAL.Repositories
         public async Task UpdateStatus(CancellationToken ct)
         {
             IEnumerable<Order> liste = await GetOrdersAsync(ct);
-           List<Order> liste1 = liste.ToList();
+           
 
             Random r = new Random();
            
             
 
-            for (int i = 0; i < liste1.Count(); i++)
+         foreach(var item in liste)
             {
-                liste1[i].StatusId = r.Next(5, 8);
-                _db.Set<Order>().Update(liste1[i]);
+                int val = r.Next(1, 3);
+                item.StatusId = val;
+                _db.Set<Order>().Update(item);
 
+                await _db.SaveChangesAsync(ct);
+               
             }
 
-           await  _db.SaveChangesAsync(ct);
+         
+
 
           
 

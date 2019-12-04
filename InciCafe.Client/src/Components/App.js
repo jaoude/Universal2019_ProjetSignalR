@@ -4,6 +4,7 @@ import './App.css';
 import coffee from '../Assets/coffee.jpg';
 import axiosRequests from '../axiosRequests.js';
 import * as signalR from '@aspnet/signalr';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -45,6 +46,7 @@ connection.start()
   .then(() => console.log("connection started"));
 connection.on("ReceiveMessage", data => {
     console.log(data);
+    this.showOrders();
 });
  
 // connection.start()
@@ -114,6 +116,8 @@ connection.on("ReceiveMessage", data => {
                    
 
                     <button  onClick={()=>this.axiosClient.postOrder()} value ="Order">order</button>
+                    <br/>
+                    <br/>
                     <div id="orders"></div>
 
                    
@@ -135,16 +139,37 @@ connection.on("ReceiveMessage", data => {
      
       //this.axiosClient.getStatusById(1);
 
+
         
-        
+      var div = document.getElementById("orders");
+      div.innerHTML="";
+
+      var outertable = "<table class= 'table  table-dark table-bordered'>"+
+      "<thead class='thead-dark'>"+
+       " <tr>"+
+       
+         " <th scope="+"col>Coffee</th>"+
+         " <th scope="+"col>Status</th>"+
+       
+      "  </tr>"+
+     " </thead>"+
+     "<tbody>";
+      
     
       
       
    
         for (var i = 0 ; i<items.length ; i++)
         {
+            var innerTable = " <tr>"+
+                  "<th scope=row>"+items[i].coffeeName+"</th>"+
+                
+               " <td>"+items[i].statusName+"</td>"+
+              
             
-            
+            "</tr>";
+            outertable+=innerTable
+           
             
            /* this.axiosClient.getCoffeeById(items[i].coffeeId);
             console.log('Coffee by Id :'+localStorage[2]);
@@ -155,17 +180,43 @@ connection.on("ReceiveMessage", data => {
 
 
 
-            var div = document.getElementById("orders");
-            console.log(div)
-            var coffee_p = document.createElement("p");
+
+//     <tr>
+//       <th scope="row">1</th>
+//       <td>Mark</td>
+//       <td>Otto</td>
+//       <td>@mdo</td>
+//     </tr>
+//     <tr>
+//       <th scope="row">2</th>
+//       <td>Jacob</td>
+//       <td>Thornton</td>
+//       <td>@fat</td>
+//     </tr>
+//     <tr>
+//       <th scope="row">3</th>
+//       <td>Larry</td>
+//       <td>the Bird</td>
+//       <td>@twitter</td>
+//     </tr>
+//   </tbody>
+// </table>
+      
+           
+          
+         
+        /*    var coffee_p = document.createElement("p");
             coffee_p.innerHTML ="<p>"+items[i].coffeeName+"</p>";
             var status_p = document.createElement("p");
             status_p.innerHTML ="<p>"+items[i].statusName+"</p>";
 
             div.append(coffee_p);
             div.append(status_p)
-
+*/
         }
+        outertable +="</tbody>"+
+           "</table>"
+        div.innerHTML=outertable
        
     }
   

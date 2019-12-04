@@ -19,7 +19,7 @@ namespace InciCafe.api.Controllers
     public class OrdersController : ControllerBase
     {
 
-        public readonly IHubContext<ChatHub> hubContext;
+        
         // GET api/values
         private readonly IOrderService _orderService;
         private readonly IHubContext<ChatHub> _hubContext;
@@ -44,6 +44,7 @@ namespace InciCafe.api.Controllers
         public async Task<ActionResult> UpdateStatus(CancellationToken ct)
         {
             await _orderService.UpdateOrderStatus(ct);
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", "Hello There General Kenobi");
 
 
             return Ok();
@@ -57,7 +58,7 @@ namespace InciCafe.api.Controllers
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto order, CancellationToken ct)
         {
             order.ClientId = 1;
-          await  _hubContext.Clients.All.SendAsync("ReceiveMessage", "Hello There General Kenobi");
+         
 
 
 
