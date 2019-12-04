@@ -8,7 +8,7 @@ namespace InciCafe.BLL
     {
         public int Id { get; set; }
         public string name { get; set; }
-        public byte[] Image { get; set; }
+
  
        
         

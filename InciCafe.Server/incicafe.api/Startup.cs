@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using System;
+using Microsoft.Owin;
 using System.IdentityModel.Tokens.Jwt;
 
 
@@ -39,6 +40,7 @@ namespace InciCafe.Api
                     .WithExposedHeaders("content-disposition")
                     .AllowAnyHeader()
                     
+
                     .SetPreflightMaxAge(TimeSpan.FromSeconds(3600)));
             });
             IdentityModelEventSource.ShowPII = true;
@@ -90,6 +92,7 @@ namespace InciCafe.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("CorsPolicy");
@@ -101,8 +104,8 @@ namespace InciCafe.Api
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseCors();
-          
+      
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -116,11 +119,13 @@ namespace InciCafe.Api
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.UseEndpoints(endpoints =>
+            app.UseSignalR(routes =>
             {
-              
-                endpoints.MapHub<ChatHub>("/chatHub");
+             
+               
+                routes.MapHub<ChatHub>("/chatHub");
             });
+            app.ApplicationServices.GetService<ChatHub>();
 
 
         }
