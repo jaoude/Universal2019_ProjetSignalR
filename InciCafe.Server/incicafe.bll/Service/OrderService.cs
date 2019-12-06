@@ -54,9 +54,10 @@ namespace InciCafe.BLL.Service
             }
         }
 
-        public  async Task UpdateOrderStatus(CancellationToken ct)
+        public  async Task<Order> UpdateOrderStatus(int id,CancellationToken ct)
         {
-             await _uow.Orders.UpdateStatus(ct);
+             Order order = await _uow.Orders.UpdateStatus(id,ct);
+            return order;
         }
     }
 }

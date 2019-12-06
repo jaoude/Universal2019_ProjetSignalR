@@ -1,4 +1,5 @@
 ﻿using InciCafe.BLL.Dto;
+using InciCafe.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,6 @@ namespace InciCafe.BLL.Service
         Task<OrderDto> GetOrderAsync(int id, CancellationToken ct);
         Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto, CancellationToken ct);
 
-        Task UpdateOrderStatus(CancellationToken ct);
+        Task<Order> UpdateOrderStatus(int id,CancellationToken ct);
     }
 }

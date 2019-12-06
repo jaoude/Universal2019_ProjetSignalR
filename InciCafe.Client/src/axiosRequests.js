@@ -42,6 +42,7 @@ class axiosRequests
     {
         var app = new App();
         var body =app.CreatePostBody();
+        app.showOrders(app.UserId);
         const response =  Axios.post(
             'http://localhost:5002/api/orders/',
             {   "ClientId" : body.ClientId,
@@ -52,14 +53,8 @@ class axiosRequests
             
             
          }
-          )
-      
-        
-
-        
-          
-
-    
+        )
     }
+   
 }
 export default axiosRequests;

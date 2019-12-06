@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.SignalR;
-
 namespace InciCafe.DAL.Repositories
 {
     public class OrderRepository : Repository<Order>, IOrderRepository
@@ -16,12 +15,14 @@ namespace InciCafe.DAL.Repositories
         //private CoffeeContext _context;
 
 
-        
-        
+       // private readonly IHubContext<ChatHub> _hubContext;
+
+
+
 
         public OrderRepository(InciCafeDbContext _db) : base(_db)
         {
-         
+           // _hubContext = hubContext;
         }
         public async Task<Order> GetOrderAsync(int id, CancellationToken ct) => 
             await _db.Set<Order>()
@@ -44,24 +45,41 @@ namespace InciCafe.DAL.Repositories
             _db.Set<Order>().Add(orderEntity);
         }
 
-        public async Task UpdateStatus(CancellationToken ct)
+        public async Task<Order> UpdateStatus(int id,CancellationToken ct)
         {
-            IEnumerable<Order> liste = await GetOrdersAsync(ct);
-           
-
-            Random r = new Random();
-           
+         Order order = await GetOrderAsync(id,ct);
+            if (order.StatusId < 3)
+            {
+                order.StatusId += 1;
+                _db.Set<Order>().Update(order);
+            }
+            else
+            {
+                _db.Set<Order>().Remove(order);
+            }
             
 
-         foreach(var item in liste)
+
+            await _db.SaveChangesAsync(ct);
+            return order;
+           
+
+        /*    Random r = new Random();
+         //  await _hubContext.Clients.All.SendAsync("ReceiveMessage", "Hello There General Kenobi");
+
+
+            foreach (var item in liste)
             {
                 int val = r.Next(1, 3);
                 item.StatusId = val;
                 _db.Set<Order>().Update(item);
+               
 
                 await _db.SaveChangesAsync(ct);
                
-            }
+            }*/
+
+         
 
          
 

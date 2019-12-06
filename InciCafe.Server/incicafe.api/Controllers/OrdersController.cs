@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace InciCafe.api.Controllers
 {
     [Route("api/[controller]")]
@@ -22,14 +23,18 @@ namespace InciCafe.api.Controllers
         
         // GET api/values
         private readonly IOrderService _orderService;
+
         private readonly IHubContext<ChatHub> _hubContext;
 
 
 
-        public OrdersController(IOrderService orderService,IHubContext<ChatHub> hubContext)
+
+        public OrdersController(IOrderService orderService, IHubContext<ChatHub> hubContext)
         {
             _orderService = orderService;
             _hubContext = hubContext;
+
+   
         }
 
         [HttpGet]
@@ -43,8 +48,16 @@ namespace InciCafe.api.Controllers
         [HttpGet("update")]
         public async Task<ActionResult> UpdateStatus(CancellationToken ct)
         {
-            await _orderService.UpdateOrderStatus(ct);
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", "Hello There General Kenobi");
+            var liste = await _orderService.GetOrdersAsync(ct);
+
+       
+            foreach(OrderDto i in liste)
+            {
+                var item = await _orderService.UpdateOrderStatus(i.Id,ct);
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", item.Id + " "+item.Status.Name);
+            }
+       
+         
 
 
             return Ok();
@@ -57,7 +70,7 @@ namespace InciCafe.api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto order, CancellationToken ct)
         {
-            order.ClientId = 1;
+            
          
 
 

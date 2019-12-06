@@ -11,24 +11,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component 
 {
+    UserId="";
 
     httpClient = new HttpClient(); 
     axiosClient = new axiosRequests();
 
-    constructor(props)
+    
+
+    updateDesign(id,status)
     {
-        super(props)
-        // this.state=
-        // {
-        //     statusOrder : '',
-        //     connection : null
-
-
-        // };
-
+       
+        var element = document.getElementById('item_'+id);
+        element.children[1].innerHTML = status;
     }
     
     componentDidMount = () => {
+         this.UserId = prompt("Please Write Your Id : ")
+
+
+
+        this.showOrders(this.UserId);
      
 
     
@@ -46,7 +48,10 @@ connection.start()
   .then(() => console.log("connection started"));
 connection.on("ReceiveMessage", data => {
     console.log(data);
-    this.showOrders();
+   var res = data.split(" ");
+
+    this.updateDesign(res[0],res[1]);
+ //   this.showOrders();
 });
  
 // connection.start()
@@ -128,7 +133,7 @@ connection.on("ReceiveMessage", data => {
         );
     }
     
-    showOrders()
+    showOrders(id)
     {
     
     
@@ -161,8 +166,11 @@ connection.on("ReceiveMessage", data => {
    
         for (var i = 0 ; i<items.length ; i++)
         {
-            var innerTable = " <tr>"+
-                  "<th scope=row>"+items[i].coffeeName+"</th>"+
+            
+           if(id == items[i].clientId)
+           {
+            var innerTable = " <tr id='item_"+items[i].id+"'>"+
+                  "<th scope='row'>"+items[i].coffeeName+"</th>"+
                 
                " <td>"+items[i].statusName+"</td>"+
               
@@ -203,7 +211,7 @@ connection.on("ReceiveMessage", data => {
 // </table>
       
            
-          
+            }
          
         /*    var coffee_p = document.createElement("p");
             coffee_p.innerHTML ="<p>"+items[i].coffeeName+"</p>";
@@ -231,6 +239,7 @@ connection.on("ReceiveMessage", data => {
     
     var obj = new Object();
    obj.CoffeeId = coffee_id+1;
+   obj.ClientId = this.UserId;
    obj.ClientId = 1;
    obj.StatusId = 1;
    obj.Size = size;
