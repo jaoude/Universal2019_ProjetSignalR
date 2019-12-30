@@ -1,15 +1,12 @@
 import Axios from "axios";
 import App from "./Components/App"
-import { JsonHubProtocol } from "@aspnet/signalr";
+
 
 class axiosRequests
 {
-   
-    
+      
     get()
     {
-       
-
         Axios.get('http://localhost:5002/api/orders').then((response)=>
         {
            
@@ -19,6 +16,17 @@ class axiosRequests
             
         })
     }
+    getCoffees()
+    {
+       Axios.get('http://localhost:5002/api/coffees').then((response)=>
+        {
+            console.log(2);
+           localStorage.setItem(2,JSON.stringify(response.data))
+            console.log(response.data)
+           
+        })
+    }
+   
 
     getCoffeeById(id)
     {
@@ -42,18 +50,19 @@ class axiosRequests
     {
         var app = new App();
         var body =app.CreatePostBody();
-        app.showOrders(app.UserId);
-        const response =  Axios.post(
+        
+         Axios.post(
             'http://localhost:5002/api/orders/',
             {   "ClientId" : body.ClientId,
-                "StatusId" : 2,
+                "StatusId" : 1,
                 "Size" : body.Size,
                 "CoffeeId" : body.CoffeeId },
             { headers: { 'Content-Type': 'application/json' },
             
             
          }
-        )
+        );
+        app.showOrders();
     }
    
 }

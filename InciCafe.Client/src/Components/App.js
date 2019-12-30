@@ -1,5 +1,5 @@
 import React from 'react';
-import HttpClient from '../httpRequests';
+
 import './App.css';
 import coffee from '../Assets/coffee.jpg';
 import axiosRequests from '../axiosRequests.js';
@@ -9,29 +9,44 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 class App extends React.Component 
 {
-    UserId="";
-
-    httpClient = new HttpClient(); 
     axiosClient = new axiosRequests();
 
-    
 
-    updateDesign(id,status)
-    {
-       
-        var element = document.getElementById('item_'+id);
-        element.children[1].innerHTML = status;
-    }
+    IdOfTheUser ="";
+
+   
     
     componentDidMount = () => {
-         this.UserId = prompt("Please Write Your Id : ")
+        localStorage[4]  = prompt("Please Write Your Id : ");
 
+        
+        this.showOrders();
 
+        this.axiosClient.getCoffees();
+    let data = JSON.parse(localStorage[2]);
 
-        this.showOrders(this.UserId);
      
+    
+        
+      
+        
+
+
+        this.showOrders();
+
+
+        
+       
+        var list = document.getElementById('Coffees');
+        for (var i = 0 ; i < data.length;i++)
+        {
+          list.innerHTML+=   " <option value='"+data[i].id+"'>"+data[i].name+"</option>"
+        }
+        
+      
 
     
 
@@ -48,43 +63,10 @@ connection.start()
   .then(() => console.log("connection started"));
 connection.on("ReceiveMessage", data => {
     console.log(data);
-   var res = data.split(" ");
-
-    this.updateDesign(res[0],res[1]);
- //   this.showOrders();
+  this.showOrders();
+  
 });
- 
-// connection.start()
-//     .then(() => connection.invoke("ReceiveMessage"));
-    //    const  connection = new HubConnection("http://localhost:5002/ChatHub","","");
-
-    //    this.setState({connection},()=>{
-    //        this.state.connection.start().then(()=> console.log('connection started'))
-    //        .catch((err)=>console.log('error : '+err));
-    //    });
-
-    //    this.state.connection.on('ReceiveMessage',(message)=>{
-    //        const statusOrder = message;
-    //        this.setState({statusOrder});
-    //    });
- 
-    /*
-      
-        this.setState({ connection, nick }, () => {
-          this.state.connection
-            .start()
-            .then(() => console.log('Connection started!'))
-            .catch(err => console.log('Error while establishing connection :('));
-    
-          this.state.connection.on('ReceiveMessage', (nick, receivedMessage) => {
-            const text = `${nick}: ${receivedMessage}`;
-            const messages = this.state.messages.concat([text]);
-            this.setState({ messages });
-          });
-       */
-   
-   
-        
+     
     }
 
  
@@ -94,7 +76,6 @@ connection.on("ReceiveMessage", data => {
             
             
             <div className="App">
-                <button className="MyOrders" style={{float: 'right'} } onClick={()=>this.showOrders()}>My Orders</button>
                 <header className="App-header">
                     
                     <img className="Coffee-Logo" src={coffee} alt="logo" />
@@ -102,11 +83,8 @@ connection.on("ReceiveMessage", data => {
 
                     <p>Choose your Coffee :</p>
 
-                    <select id="Coffees" ref={ref => this.Coffees_Ref = ref}>
-                        <option value="Espresso">Espresso</option>
-                        <option value="Latte">Latte</option>
-                        <option value="Americano">Americano</option>
-                        <option value="Cappucino">Cappucino</option>
+                    <select id="Coffees">
+                     
                     </select>
 
                     <p>Choose the size :</p>
@@ -120,7 +98,7 @@ connection.on("ReceiveMessage", data => {
 
                    
 
-                    <button  onClick={()=>this.axiosClient.postOrder()} value ="Order">order</button>
+                    <button style={{marginTop: 10 + 'px'}} onClick={()=>this.axiosClient.postOrder()} value ="Order">order</button>
                     <br/>
                     <br/>
                     <div id="orders"></div>
@@ -133,12 +111,12 @@ connection.on("ReceiveMessage", data => {
         );
     }
     
-    showOrders(id)
+    showOrders()
     {
     
     
         this.axiosClient.get();
-
+     
         var items = JSON.parse( localStorage[1])
         console.log(items);
      
@@ -149,12 +127,13 @@ connection.on("ReceiveMessage", data => {
       var div = document.getElementById("orders");
       div.innerHTML="";
 
-      var outertable = "<table class= 'table  table-dark table-bordered'>"+
+      var outertable = "<table style='margin-top : 10px' class='table table-dark table-bordered'>"+
       "<thead class='thead-dark'>"+
        " <tr>"+
        
-         " <th scope="+"col>Coffee</th>"+
-         " <th scope="+"col>Status</th>"+
+         " <th scope=col>Coffee</th>"+
+         " <th scope=col>Status</th>"+
+         "<th scope=col>Size</th>"+
        
       "  </tr>"+
      " </thead>"+
@@ -167,65 +146,24 @@ connection.on("ReceiveMessage", data => {
         for (var i = 0 ; i<items.length ; i++)
         {
             
-           if(id == items[i].clientId)
+           if(parseInt(localStorage[4]) == items[i].clientId)
            {
             var innerTable = " <tr id='item_"+items[i].id+"'>"+
                   "<th scope='row'>"+items[i].coffeeName+"</th>"+
                 
                " <td>"+items[i].statusName+"</td>"+
+               "<td>"+items[i].size+"</td>"+
               
             
             "</tr>";
             outertable+=innerTable
-           
-            
-           /* this.axiosClient.getCoffeeById(items[i].coffeeId);
-            console.log('Coffee by Id :'+localStorage[2]);
-            this.axiosClient.getStatusById(items[i].statusId);
-            console.log('status by Id :'+localStorage[3]);
-
-           */
-
-
-
-
-//     <tr>
-//       <th scope="row">1</th>
-//       <td>Mark</td>
-//       <td>Otto</td>
-//       <td>@mdo</td>
-//     </tr>
-//     <tr>
-//       <th scope="row">2</th>
-//       <td>Jacob</td>
-//       <td>Thornton</td>
-//       <td>@fat</td>
-//     </tr>
-//     <tr>
-//       <th scope="row">3</th>
-//       <td>Larry</td>
-//       <td>the Bird</td>
-//       <td>@twitter</td>
-//     </tr>
-//   </tbody>
-// </table>
-      
-           
-            }
+        }
          
-        /*    var coffee_p = document.createElement("p");
-            coffee_p.innerHTML ="<p>"+items[i].coffeeName+"</p>";
-            var status_p = document.createElement("p");
-            status_p.innerHTML ="<p>"+items[i].statusName+"</p>";
-
-            div.append(coffee_p);
-            div.append(status_p)
-*/
         }
         outertable +="</tbody>"+
            "</table>"
         div.innerHTML=outertable
-       
+    
     }
   
     
@@ -239,8 +177,9 @@ connection.on("ReceiveMessage", data => {
     
     var obj = new Object();
    obj.CoffeeId = coffee_id+1;
-   obj.ClientId = this.UserId;
-   obj.ClientId = 1;
+   obj.ClientId = parseInt(localStorage[4])
+
+  // obj.ClientId = this.state.IdOfTheUser;
    obj.StatusId = 1;
    obj.Size = size;
    
