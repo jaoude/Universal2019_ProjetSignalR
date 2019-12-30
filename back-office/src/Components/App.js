@@ -1,7 +1,7 @@
 import React from 'react';
 import HttpClient from '../httpRequests';
 import './App.css';
-import coffee from '../Assets/coffee.jpg';
+
 import axiosRequests from '../axiosRequests.js';
 import * as signalR from '@aspnet/signalr';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,11 +34,11 @@ class App extends React.Component
       var outertable = "<table class= 'table  table-dark table-bordered'>"+
       "<thead class='thead-dark'>"+
        " <tr>"+
-       " <th scope="+"col>#</th>"+
-       " <th scope="+"col>Client Id</th>"+
-       " <th scope="+"col>Client Name</th>"+
-         " <th scope="+"col>Coffee</th>"+
-         " <th scope="+"col>Status</th>"+
+       " <th scope=col>#</th>"+
+       " <th scope=col>Client Id</th>"+
+       " <th scope=col>Client Name</th>"+
+         " <th scope=col>Coffee</th>"+
+         " <th scope=col>Status</th>"+
        
       "  </tr>"+
      " </thead>"+
@@ -113,7 +113,7 @@ connection.on("ReceiveMessage", data => {
             
             <div className="App">
                 
-                <button className="MyOrders" style={{float: 'right'} } onClick={()=>this.showOrders()}>My Orders</button>
+                
                 <header className="App-header">
 
                 <div id="App"></div>

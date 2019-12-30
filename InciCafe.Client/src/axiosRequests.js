@@ -10,7 +10,7 @@ class axiosRequests
         Axios.get('http://localhost:5002/api/orders').then((response)=>
         {
            
-         //  console.log( JSON.stringify(response.data))
+    
 				  
            localStorage.setItem(1, JSON.stringify(response.data));
             
@@ -20,13 +20,23 @@ class axiosRequests
     {
        Axios.get('http://localhost:5002/api/coffees').then((response)=>
         {
-            console.log(2);
+            
            localStorage.setItem(2,JSON.stringify(response.data))
-            console.log(response.data)
+           
            
         })
     }
-   
+   getClientName()
+   {
+    Axios.get('http://localhost:5002/api/clients').then((response)=>
+    {
+        
+       localStorage.setItem(8,JSON.stringify(response.data))
+       
+       
+    })
+
+   }
 
     getCoffeeById(id)
     {

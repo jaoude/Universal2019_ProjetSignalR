@@ -15,40 +15,40 @@ class App extends React.Component
     axiosClient = new axiosRequests();
 
 
-    IdOfTheUser ="";
+    
+    client = null;
 
    
     
     componentDidMount = () => {
         localStorage[4]  = prompt("Please Write Your Id : ");
 
+        this.axiosClient.getClientName();
+        var clients= JSON.parse(localStorage[8])
+        console.log(clients);
+        console.log(this.IdOfTheUser)
         
-        this.showOrders();
+        for(var j = 0 ; j<clients.length;j++)
+        {
+            if (parseInt(localStorage[4])=== clients[j].id)
+            {
+                this.client = clients[j];
 
-        this.axiosClient.getCoffees();
-    let data = JSON.parse(localStorage[2]);
-
+            } 
+        }
      
-    
-        
-      
-        
-
-
-        this.showOrders();
-
 
         
        
+
+        this.axiosClient.getCoffees();
+        let data = JSON.parse(localStorage[2]);
+        this.showOrders();
         var list = document.getElementById('Coffees');
         for (var i = 0 ; i < data.length;i++)
         {
           list.innerHTML+=   " <option value='"+data[i].id+"'>"+data[i].name+"</option>"
         }
-        
-      
-
-    
 
 let connection = new signalR.HubConnectionBuilder()
 .configureLogging(signalR.LogLevel.Debug)
@@ -120,7 +120,7 @@ connection.on("ReceiveMessage", data => {
         var items = JSON.parse( localStorage[1])
         console.log(items);
      
-      //this.axiosClient.getStatusById(1);
+   
 
 
         
@@ -130,7 +130,7 @@ connection.on("ReceiveMessage", data => {
       var outertable = "<table style='margin-top : 10px' class='table table-dark table-bordered'>"+
       "<thead class='thead-dark'>"+
        " <tr>"+
-       
+       "<th scope=col>Client Name</th>"+
          " <th scope=col>Coffee</th>"+
          " <th scope=col>Status</th>"+
          "<th scope=col>Size</th>"+
@@ -146,9 +146,10 @@ connection.on("ReceiveMessage", data => {
         for (var i = 0 ; i<items.length ; i++)
         {
             
-           if(parseInt(localStorage[4]) == items[i].clientId)
+           if(parseInt(localStorage[4]) === items[i].clientId)
            {
             var innerTable = " <tr id='item_"+items[i].id+"'>"+
+            "<th scope='row'>"+this.client.firstName + " " + this.client.lastName+"</th>"+
                   "<th scope='row'>"+items[i].coffeeName+"</th>"+
                 
                " <td>"+items[i].statusName+"</td>"+
@@ -179,7 +180,7 @@ connection.on("ReceiveMessage", data => {
    obj.CoffeeId = coffee_id+1;
    obj.ClientId = parseInt(localStorage[4])
 
-  // obj.ClientId = this.state.IdOfTheUser;
+
    obj.StatusId = 1;
    obj.Size = size;
    
