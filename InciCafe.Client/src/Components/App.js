@@ -23,19 +23,10 @@ class App extends React.Component
     componentDidMount = () => {
         localStorage[4]  = prompt("Please Write Your Id : ");
 
-        this.axiosClient.getClientName();
         var clients= JSON.parse(localStorage[8])
         console.log(clients);
         console.log(this.IdOfTheUser)
-        
-        for(var j = 0 ; j<clients.length;j++)
-        {
-            if (parseInt(localStorage[4])=== clients[j].id)
-            {
-                this.client = clients[j];
-
-            } 
-        }
+      
      
 
         
@@ -113,6 +104,7 @@ connection.on("ReceiveMessage", data => {
     
     showOrders()
     {
+
     
     
         this.axiosClient.get();
@@ -146,10 +138,12 @@ connection.on("ReceiveMessage", data => {
         for (var i = 0 ; i<items.length ; i++)
         {
             
+            
            if(parseInt(localStorage[4]) === items[i].clientId)
            {
+           
             var innerTable = " <tr id='item_"+items[i].id+"'>"+
-            "<th scope='row'>"+this.client.firstName + " " + this.client.lastName+"</th>"+
+            "<th scope='row'>"+items[i].clientName +"</th>"+
                   "<th scope='row'>"+items[i].coffeeName+"</th>"+
                 
                " <td>"+items[i].statusName+"</td>"+

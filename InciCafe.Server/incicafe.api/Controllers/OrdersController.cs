@@ -116,7 +116,11 @@ namespace InciCafe.api.Controllers
             if (orderDto == null)
                 return UnprocessableEntity();
             else
+            {
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", "never underestimate a droid");
                 return CreatedAtRoute(new { orderDto.Id }, orderDto);
+
+            }
         }
 
         // PUT api/orders/5

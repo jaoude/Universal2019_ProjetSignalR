@@ -26,17 +26,7 @@ class axiosRequests
            
         })
     }
-   getClientName()
-   {
-    Axios.get('http://localhost:5002/api/clients').then((response)=>
-    {
-        
-       localStorage.setItem(8,JSON.stringify(response.data))
-       
-       
-    })
-
-   }
+   
 
     getCoffeeById(id)
     {
